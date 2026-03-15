@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 font-sans">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <h1 class="text-2xl font-bold">Posts</h1>
+            <nav>
+                <a href="/users/" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">Users</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-purple-500 to-blue-500 text-white py-8 shadow-md">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold">All Posts</h2>
+            <p class="mt-2 text-lg opacity-90">View and manage all posts in a clean and colorful dashboard.</p>
+        </div>
+    </section>
+
+    <!-- Posts Table -->
+    <main class="container mx-auto p-6">
+        <div class="overflow-x-auto shadow-lg rounded-xl bg-white">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gradient-to-r from-blue-100 to-purple-100">
+                    <tr>
+                        <th class="py-3 px-4 text-left text-gray-700">ID</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Title</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Author</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Created At</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Updated At</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Published</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for post in posts %}
+                    <tr class="hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition">
+                        <td class="py-2 px-4 font-medium text-gray-800">{{ post.id }}</td>
+                        <td class="py-2 px-4 text-blue-600 font-semibold">{{ post.title }}</td>
+                        <td class="py-2 px-4 text-gray-700">{{ post.author.username }}</td>
+                        <td class="py-2 px-4">{{ post.created_at }}</td>
+                        <td class="py-2 px-4">{{ post.updated_at }}</td>
+                        <td class="py-2 px-4">
+                            <span class="px-2 py-1 rounded-full text-sm font-semibold {{ post.published|yesno:'bg-green-200 text-green-800,bg-red-200 text-red-800' }}">
+                                {{ post.published|yesno:"Yes,No" }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td class="py-4 px-4 text-center text-gray-500" colspan="6">No posts found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 text-center mt-12">
+        &copy; 2026 Posts Dashboard. All rights reserved.
+    </footer>
+
+</body>
+</html>

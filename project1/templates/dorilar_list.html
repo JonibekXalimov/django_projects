@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dorilar Market</title>
+
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+/* ===== GLOBAL ===== */
+body{
+    font-family:'Roboto', sans-serif;
+    margin:0;
+    padding:0;
+    background:#f8f8f8;
+    color:#333;
+}
+
+/* ===== NAVBAR ===== */
+header.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 50px;
+    background:#1d4ed8;
+    color:white;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 6px rgba(0,0,0,0.1);
+}
+
+.navbar h1{
+    font-size:24px;
+    font-weight:700;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.navbar a:hover{
+    color:#ffd700;
+}
+
+/* ===== HERO ===== */
+.hero{
+    background:url('https://images.unsplash.com/photo-1588776814546-15700e2b8b4c?auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+    background-size:cover;
+    color:white;
+    padding:100px 20px;
+    text-align:center;
+}
+
+.hero h2{
+    font-size:48px;
+    margin:0 0 20px 0;
+    text-shadow:2px 2px 10px rgba(0,0,0,0.7);
+}
+
+.hero p{
+    font-size:20px;
+    max-width:700px;
+    margin:auto;
+    text-shadow:1px 1px 5px rgba(0,0,0,0.5);
+}
+
+/* ===== PRODUCTS GRID ===== */
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:20px;
+    width:95%;
+    margin:40px auto;
+}
+
+.product-card{
+    background:white;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    overflow:hidden;
+    transition:0.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+}
+
+.product-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.product-card .info{
+    padding:15px;
+    text-align:center;
+}
+
+.product-card .info h3{
+    margin:10px 0;
+    font-size:18px;
+    color:#1d4ed8;
+}
+
+.product-card .info p{
+    margin:5px 0;
+    font-size:16px;
+    font-weight:500;
+}
+
+.product-card .info .price{
+    color:#16a34a;
+    font-weight:700;
+    font-size:18px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#1d4ed8;
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+    margin-top:40px;
+}
+
+footer p{
+    margin:0;
+    font-size:14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width:768px){
+    .hero h2{ font-size:32px; }
+    .hero p{ font-size:16px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <h1><i class="fas fa-pills"></i> Dorilar Market</h1>
+    <nav>
+        <a href="/dorixona/"><i class="fas fa-list"></i> Dorilar</a>
+        <a href="/mijoz/"><i class="fas fa-user"></i> Mijozlar</a>
+    </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <h2>O‘zingizga kerakli dorilarni toping</h2>
+    <p>Bizning dorixona marketimizda siz dorilarni narxi, ishlab chiqaruvchi, yaroqlilik va miqdor bilan ko‘rishingiz mumkin. Sifatli dorilar faqat bizda!</p>
+</section>
+
+<!-- PRODUCTS GRID -->
+<section class="products">
+    {% for dori in dorilar %}
+    <div class="product-card">
+        <img src="{{ dori.rasm_url }}" alt="{{ dori.nomi }}">
+        <div class="info">
+            <h3>{{ dori.nomi }}</h3>
+            <p class="price">{{ dori.narxi }} so'm</p>
+            <p>{{ dori.ishlab_chiqaruvchi }}</p>
+            <p>Amal muddati: {{ dori.amal_muddati }}</p>
+            <p>Kategoriya: {{ dori.kategoriya }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Dorilar Market. Barcha huquqlar himoyalangan.</p>
+</footer>
+
+</body>
+</html>

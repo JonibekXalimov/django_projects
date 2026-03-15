@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 font-sans">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <h1 class="text-2xl font-bold">Users</h1>
+            <nav>
+                <a href="/posts/" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">Posts</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-purple-500 to-blue-500 text-white py-8 shadow-md">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold">All Users</h2>
+            <p class="mt-2 text-lg opacity-90">Manage your users easily with this colorful dashboard interface.</p>
+        </div>
+    </section>
+
+    <!-- Users Table -->
+    <main class="container mx-auto p-6">
+        <div class="overflow-x-auto shadow-lg rounded-xl bg-white">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gradient-to-r from-blue-100 to-purple-100">
+                    <tr>
+                        <th class="py-3 px-4 text-left text-gray-700">ID</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Username</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Email</th>
+                        <th class="py-3 px-4 text-left text-gray-700">First Name</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Last Name</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Bio</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Staff</th>
+                        <th class="py-3 px-4 text-left text-gray-700">Active</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for user in users %}
+                    <tr class="hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition">
+                        <td class="py-2 px-4 font-medium text-gray-800">{{ user.id }}</td>
+                        <td class="py-2 px-4 text-blue-600 font-semibold">{{ user.username }}</td>
+                        <td class="py-2 px-4 text-gray-700">{{ user.email }}</td>
+                        <td class="py-2 px-4">{{ user.first_name }}</td>
+                        <td class="py-2 px-4">{{ user.last_name }}</td>
+                        <td class="py-2 px-4 text-gray-500">{{ user.bio }}</td>
+                        <td class="py-2 px-4">
+                            <span class="px-2 py-1 rounded-full text-sm font-semibold {{ user.is_staff|yesno:'bg-green-200 text-green-800,bg-red-200 text-red-800' }}">
+                                {{ user.is_staff|yesno:"Yes,No" }}
+                            </span>
+                        </td>
+                        <td class="py-2 px-4">
+                            <span class="px-2 py-1 rounded-full text-sm font-semibold {{ user.is_active|yesno:'bg-green-200 text-green-800,bg-red-200 text-red-800' }}">
+                                {{ user.is_active|yesno:"Yes,No" }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td class="py-4 px-4 text-center text-gray-500" colspan="8">No users found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 text-center mt-12">
+        &copy; 2026 Users Dashboard. All rights reserved.
+    </footer>
+
+</body>
+</html>

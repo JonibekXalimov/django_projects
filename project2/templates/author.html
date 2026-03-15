@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mualliflar Market</title>
+
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+/* ===== GLOBAL ===== */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f6f8;
+    color: #333;
+}
+
+/* ===== NAVBAR ===== */
+header.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: #1d4ed8;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.navbar h1 {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: #ffd700;
+}
+
+/* ===== HERO ===== */
+.hero {
+    background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+    background-size: cover;
+    color: white;
+    padding: 120px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 0;
+}
+
+.hero .content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 20px;
+    max-width: 700px;
+    margin: auto;
+}
+
+/* ===== AUTHORS GRID ===== */
+main {
+    width: 95%;
+    margin: 50px auto;
+}
+
+.authors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.author-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.author-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.author-card h3 {
+    margin: 10px 0;
+    font-size: 20px;
+    color: #1d4ed8;
+    font-weight: 700;
+}
+
+.author-card p {
+    margin: 5px 0;
+    font-size: 15px;
+    color: #555;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #1d4ed8;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 1024px) {
+    .authors-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header.navbar {
+        flex-direction: column;
+        padding: 20px 30px;
+    }
+    .navbar nav {
+        margin-top: 10px;
+    }
+    .hero h2 { font-size: 36px; }
+    .hero p { font-size: 16px; }
+    .author-card h3 { font-size: 18px; }
+    .author-card p { font-size: 14px; }
+}
+
+@media screen and (max-width: 480px) {
+    .authors-grid { grid-template-columns: 1fr; gap: 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <h1><i class="fas fa-user"></i> Mualliflar Market</h1>
+    <nav>
+        <a href="/books/"><i class="fas fa-book"></i> Kitoblar</a>
+        <a href="/authors/"><i class="fas fa-user"></i> Mualliflar</a>
+        <a href="/contact/"><i class="fas fa-envelope"></i> Aloqa</a>
+    </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="content">
+        <h2>Bizning Mualliflarimiz</h2>
+        <p>Har bir muallif haqida to‘liq ma’lumot: ism, bio, telefon, tug‘ilgan sana va mamlakat.</p>
+    </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main>
+    <section class="authors-grid">
+        {% for author in authors %}
+        <div class="author-card">
+            <h3>{{ author.name }}</h3>
+            <p>{{ author.bio|default:"Bio mavjud emas" }}</p>
+            <p>Tug‘ilgan sana: {{ author.birth_date|date:"Y-m-d"|default:"Noma'lum" }}</p>
+            <p>Telefon: {{ author.phone_number|default:"Noma'lum" }}</p>
+            <p>Davlat: {{ author.country|default:"Noma'lum" }}</p>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Mualliflar Market. Barcha huquqlar himoyalangan.</p>
+</footer>
+
+</body>
+</html>
